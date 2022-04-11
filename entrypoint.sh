@@ -63,6 +63,7 @@ function wait_on_workflow {
     	-H "Accept: application/vnd.github.v3+json" \
     	-H "Authorization: Bearer ${INPUT_TOKEN}" | jq '.conclusion')
     counter=$(( $counter + $INPUT_WAIT_TIME ))
+    echo $conclusion
   done
 
   if [[ $conclusion == "\"success\"" ]]
