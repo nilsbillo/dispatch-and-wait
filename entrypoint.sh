@@ -28,7 +28,7 @@ function find_workflow {
     wtime=$( echo $(echo $workflow | jq '.created_at') | cut -c13-20 )
     atime=$(date -u +%T)
     tdif=$(( $(date -d "$atime" +"%s") - $(date -d "$wtime" +"%s") ))
-    
+
     if [[ "$tdif" -gt "10" ]]
     then
       if [[ "$counter" -gt "3" ]]
@@ -45,7 +45,7 @@ function find_workflow {
 
   wfid=$(echo $workflow | jq '.id')
   conclusion=$(echo $workflow | jq '.conclusion')
-  
+
   echo "Workflow id is ${wfid}"
 }
 
@@ -63,7 +63,9 @@ function wait_on_workflow {
     	-H "Accept: application/vnd.github.v3+json" \
     	-H "Authorization: Bearer ${INPUT_TOKEN}" | jq '.conclusion')
     counter=$(( $counter + $INPUT_WAIT_TIME ))
+    echo "XXX1"
     echo $conclusion
+    echo "XXX2"
   done
 
   if [[ $conclusion == "\"success\"" ]]
